@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DomainThread implements Runnable {
-    String domain;
+	String domain;
 	ExecutorService pool;
 	Queue queue = new PriorityQueue();
 	CompletionService<List<String>> thepool;
@@ -31,15 +31,14 @@ public class DomainThread implements Runnable {
 	@Override
 	public void run(){
 		URL theUrl = null;
-		int theInt = 0;
 		while(!queue.isEmpty() && Crawler.checkdocID() < Crawler.getThreshold()){
 			for(int i = 0; i < numThreads; i++){
 				if(!queue.isEmpty()){
 					thepool.submit(new URLThread((String)queue.poll()));
 				}
 			}
-			int someInt = queue.size() + 1;
-			for(int i = 0; i < Math.min(numThreads, someInt); i++){
+			int currentQueueSize = queue.size() + 1;
+			for(int i = 0; i < Math.min(numThreads, currentQueueSize); i++){
 				try {
 					result = thepool.take().get();
 					for(int j = 0; j < result.size(); j++){
@@ -56,10 +55,11 @@ public class DomainThread implements Runnable {
 									queue.add(result.get(j));
 									Crawler.addpagehash(result.get(j));
 								} else {
-									System.out.println("duplicate " + result.get(j));
+									//System.out.println("duplicate " + result.get(j));
 									Crawler.incrdups();
 								}
 							} else if(!Crawler.checkhash(domain)){
+								//Add a domain to crawler list and add a thread for this domain
 								Crawler.submitthread(result.get(j), domain);
 							} else {
 							}
@@ -72,7 +72,7 @@ public class DomainThread implements Runnable {
 				}
 			}
 			try {
-				Thread.sleep(500);
+				Thread.sleep(500);	//to politely crawl
 			} catch(InterruptedException ex){
 				Logger.getLogger(DomainThread.class.getName()).log(Level.SEVERE, null, ex);
 			}

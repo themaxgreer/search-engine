@@ -1,0 +1,11 @@
+tbd
+
+to run: java -jar crawler.jar seed number
+		where seed is a seed url you want to start from
+			  and number is the amount of sites you want to crawl
+			  
+example arguments: java -jar crawler.jar http://www.gawker.com 100
+
+the result of running the command is 
+	-a html folder that contains all html from the site that were crawled
+	-a pid map that tells you the mappings of the url to its html in the html folder

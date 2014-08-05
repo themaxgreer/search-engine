@@ -62,6 +62,9 @@ public class Crawler {
 	
 		pool.submit(new DomainThread(URL.toString(), URL.getHost()));
 		for(int i = 0; i < DONTCRAWL.length; i++){
+			/* Add do no crawl to domain list so if found it 
+			 * will be a "duplicate" and ignored
+			 */
 			domains.put(DONTCRAWL[i], i);
 		}
 		while(true){
@@ -77,7 +80,7 @@ public class Crawler {
             	FileWriter file;
             	file = new FileWriter("pid_map.dat");
             	for(int i = 1; i < docID.get(); i++){
-            		file.write(pid_map[i] + " " + i + "\n");
+            		file.write(i + "\t" +  pid_map[i] + "\n");
             	}
             	file.close();
             	System.exit(1);
@@ -117,8 +120,8 @@ public class Crawler {
 		pid_map[docID] = new String(url);
 	}
 	
-	public static void printmetrics(){
-		System.out.println(new Date() + " duplicates: " + duplicates.get());
+	public static void printmetrics(int docID){
+		System.out.println(new Date() + " DocIds: " + docID + "\tNumber of duplicates: " + duplicates.get());
 	}
 	
 	public static void incrdups(){

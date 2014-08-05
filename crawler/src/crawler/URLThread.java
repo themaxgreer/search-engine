@@ -42,6 +42,7 @@ public class URLThread implements Callable {
 		BufferedReader rd;
 		String line;
 		result = new String();
+		//Send a server request to retrieve html for a URL
 		try{
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
@@ -57,15 +58,16 @@ public class URLThread implements Callable {
 		}
 		
 		if(!result.isEmpty()){
-			int docID = Crawler.getdocID();
+			int docID = Crawler.getdocID(); 	//atomically retrieve and increment docID
 			//the "/" is added so that it writes to the correct directory
 			FileWriter file = new FileWriter(Crawler.getDir() + "/"+ Integer.toString(docID) + ".txt");
 			file.write(result);
 			file.close();
             if(docID % 100 == 0){
-            	Crawler.printmetrics();
+            	Crawler.printmetrics(docID);
             }
             Crawler.insertpid(url.toString(), docID);
+            //use JSOUP HTML PARSER to extract links
 			Document doc = Jsoup.parse(result);
 			Elements resultLinks = doc.select("a[href]");
 			for(Element link : resultLinks){
