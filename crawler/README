@@ -1,18 +1,18 @@
 Part 1: Crawler
 
-Description: This is a program which starts at a seed URL and visits and retrieves HTML
-			 from all of pages that are linked on the seed URL. This process is repeated
-			 for all of the links as well until the number of sites that needs to be crawled
-			 are reached.
+Description: 	This is a program which starts at a seed URL and visits and retrieves HTML
+	     	from all of pages that are linked on the seed URL. This process is repeated
+	     	for all of the links as well until the number of sites that needs to be crawled
+	     	are reached.
 			 
-More reading: http://en.wikipedia.org/wiki/Web_crawler	
+More reading: 		http://en.wikipedia.org/wiki/Web_crawler	
 
-To run: java -jar crawler.jar seed number
+To run: 		java -jar crawler.jar seed number
 		
-		where: 	seed is a seed url you want to start from
+			where: 	seed is a seed url you want to start from
 				number is the amount of sites you want to crawl
 			  
-Example arguments: java -jar crawler.jar http://www.gawker.com 100
+Example arguments: 	java -jar crawler.jar http://www.gawker.com 100
 
 Outputs:
 	- A html folder (/html/*) that contains all html from the site that were crawled
