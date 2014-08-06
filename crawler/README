@@ -1,11 +1,36 @@
-tbd
+Part 1: Crawler
 
-to run: java -jar crawler.jar seed number
-		where seed is a seed url you want to start from
-			  and number is the amount of sites you want to crawl
+Description: This is a program which starts at a seed URL and visits and retrieves HTML
+			 from all of pages that are linked on the seed URL. This process is repeated
+			 for all of the links as well until the number of sites that needs to be crawled
+			 are reached.
+			 
+More reading: http://en.wikipedia.org/wiki/Web_crawler	
+
+To run: java -jar crawler.jar seed number
+		
+		where: 	seed is a seed url you want to start from
+				number is the amount of sites you want to crawl
 			  
-example arguments: java -jar crawler.jar http://www.gawker.com 100
+Example arguments: java -jar crawler.jar http://www.gawker.com 100
 
-the result of running the command is 
-	-a html folder that contains all html from the site that were crawled
-	-a pid map that tells you the mappings of the url to its html in the html folder
+Outputs:
+	- A html folder (/html/*) that contains all html from the site that were crawled
+	- A pid map (pid.map) that tells you the mappings of the url to its html in the html folder
+	
+Caveats:
+	- All sites crawled will be unique
+	- Any site that is not a web page, e.g., email links, FTP links, links to images,
+	  videos, etc, should all be ignored. Also any URL which contains a # symbol will be ignored.
+
+Rules (As where assign in initial project)
+	- Implementation is multi-threaded
+	- There is a do-not-crawl list containing the following domains: 
+	  facebook.com, slashdot.org, twitter.com, amazon.com, google.com, ebay.com, and *.gov
+	- For any unique domain name, you can open no more than two simultaneous
+	  connections on it. Subdomains however are treated as different domains.
+	- The crawler will wait at least 0.5 seconds to dispatch a new thread to the same
+	  domain name. For instance Suppose you currently have two threads retrieving documents on site
+	  A. One thread finishes. The thread pool must wait 0.5 seconds before dequeuing and running the next
+	  job on domain A.
+	- The crawler will visit and store a distinct URL at most once.
