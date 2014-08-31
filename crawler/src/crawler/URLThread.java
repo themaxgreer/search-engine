@@ -24,7 +24,6 @@ public class URLThread implements Callable {
 	URL url;
 	HttpURLConnection conn;
 	List<String> list = new ArrayList<String>();
-	public static boolean madeDir = new File("html/").mkdir(); //to hold all html
 	
 	public URLThread(String URL){
 		this.URL = URL;
@@ -63,10 +62,14 @@ public class URLThread implements Callable {
 			FileWriter file = new FileWriter(Crawler.getDir() + "/"+ Integer.toString(docID) + ".txt");
 			file.write(result);
 			file.close();
-            if(docID % 100 == 0){
+			
+            /* Diagnostic print while testing to see how many docId's have been processed
+			if(docID % 100 == 0){
             	Crawler.printmetrics(docID);
             }
-            Crawler.insertpid(url.toString(), docID);
+            */
+            
+			Crawler.insertpid(url.toString(), docID);
             //use JSOUP HTML PARSER to extract links
 			Document doc = Jsoup.parse(result);
 			Elements resultLinks = doc.select("a[href]");

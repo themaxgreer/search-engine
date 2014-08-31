@@ -3,6 +3,9 @@
 # matches "bin" in any subfolder
 bin/
 
+# ignore html subfolder
+html/
+
 # ignore all target directories
 target/
 

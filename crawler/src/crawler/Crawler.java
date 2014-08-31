@@ -43,12 +43,14 @@ public class Crawler {
 			System.exit(1);
 		}
 		/* Set up variables */
-		int toggle = 1;
+		dir.mkdir();
 		duplicates = new AtomicLong();
 		pid_map = new String[250000];
 		docID = new AtomicInteger();
 		URI URL = new URI(args[0]);
 		THRESHOLD = Integer.parseInt(args[1]);
+		//int toggle = 1; used for diagnostics 
+		
 		
 		pool = Executors.newFixedThreadPool(THREAD_NO);
 		pages = new ConcurrentHashMap<String, Integer>(CAPACITY, LOADFACTOR, CONCURR);
@@ -68,12 +70,13 @@ public class Crawler {
 			domains.put(DONTCRAWL[i], i);
 		}
 		while(true){
-            if(docID.get() % 1000 == 0 && toggle == 1){
+            /* Diagnostic print to see how many threads are active
+			if(docID.get() % 1000 == 0 && toggle == 1){
                 System.out.println(new Date() + " Threads: " + Thread.activeCount());
                 toggle = 0;
             }else if(docID.get() % 1000 != 0){
                 toggle = 1;
-            }
+            } */
             if(docID.get() > THRESHOLD){
             	pool.shutdown();
             	System.out.println("done and exiting");

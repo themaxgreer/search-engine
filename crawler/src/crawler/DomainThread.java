@@ -55,7 +55,9 @@ public class DomainThread implements Runnable {
 									queue.add(result.get(j));
 									Crawler.addpagehash(result.get(j));
 								} else {
-									//System.out.println("duplicate " + result.get(j));
+									/* Diagnostic print to see the actual URL for the duplicate
+									 * System.out.println("duplicate " + result.get(j));
+									 */
 									Crawler.incrdups();
 								}
 							} else if(!Crawler.checkhash(domain)){
