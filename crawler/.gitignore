@@ -8,10 +8,10 @@ html/
 
 # ignore all eclipse project settings
 target/
-*.class
+.class
 .settings/
-.classpath
-.project
+*/.classpath
+*/.project
 
 # ignore all files ending with ~
 *~ 
