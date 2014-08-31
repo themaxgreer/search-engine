@@ -6,8 +6,10 @@ bin/
 # ignore html subfolder
 html/
 
-# ignore all target directories
+# ignore all eclipse project settings
 target/
+*.class
+.settings/
 
 # ignore all files ending with ~
 *~ 
