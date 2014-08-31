@@ -10,6 +10,8 @@ html/
 target/
 *.class
 .settings/
+.classpath
+.project
 
 # ignore all files ending with ~
 *~ 
